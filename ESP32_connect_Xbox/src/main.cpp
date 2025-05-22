@@ -6,31 +6,39 @@
 XboxSeriesXControllerESP32_asukiaaa::Core
     xboxController("f4:6a:d7:a0:5c:59");
 
+/**
+ * @brief 生成Xbox控制器状态字符串
+ *
+ * 将Xbox控制器的所有按钮状态和摇杆/扳机值转换为逗号分隔的字符串。
+ * 字符串格式为：Y,X,B,A,LB,RB,Select,Start,Xbox,Share,LS,RS,Up,Right,Down,Left,LH,LV,RH,RV,LT,RT
+ *
+ * @return String 包含所有控制器状态的CSV格式字符串，以换行符结尾
+ */
 String xbox_string()
 {
-  String str = String(xboxController.xboxNotif.btnY) + "," +
-               String(xboxController.xboxNotif.btnX) + "," +
-               String(xboxController.xboxNotif.btnB) + "," +
-               String(xboxController.xboxNotif.btnA) + "," +
-               String(xboxController.xboxNotif.btnLB) + "," +
-               String(xboxController.xboxNotif.btnRB) + "," +
-               String(xboxController.xboxNotif.btnSelect) + "," +
-               String(xboxController.xboxNotif.btnStart) + "," +
-               String(xboxController.xboxNotif.btnXbox) + "," +
-               String(xboxController.xboxNotif.btnShare) + "," +
-               String(xboxController.xboxNotif.btnLS) + "," +
-               String(xboxController.xboxNotif.btnRS) + "," +
-               String(xboxController.xboxNotif.btnDirUp) + "," +
-               String(xboxController.xboxNotif.btnDirRight) + "," +
-               String(xboxController.xboxNotif.btnDirDown) + "," +
-               String(xboxController.xboxNotif.btnDirLeft) + "," +
-               String(xboxController.xboxNotif.joyLHori) + "," +
-               String(xboxController.xboxNotif.joyLVert) + "," +
-               String(xboxController.xboxNotif.joyRHori) + "," +
-               String(xboxController.xboxNotif.joyRVert) + "," +
-               String(xboxController.xboxNotif.trigLT) + "," +
-               String(xboxController.xboxNotif.trigRT) + "\n";
-  return str;
+    String str = String(xboxController.xboxNotif.btnY) + "," +
+                 String(xboxController.xboxNotif.btnX) + "," +
+                 String(xboxController.xboxNotif.btnB) + "," +
+                 String(xboxController.xboxNotif.btnA) + "," +
+                 String(xboxController.xboxNotif.btnLB) + "," +
+                 String(xboxController.xboxNotif.btnRB) + "," +
+                 String(xboxController.xboxNotif.btnSelect) + "," +
+                 String(xboxController.xboxNotif.btnStart) + "," +
+                 String(xboxController.xboxNotif.btnXbox) + "," +
+                 String(xboxController.xboxNotif.btnShare) + "," +
+                 String(xboxController.xboxNotif.btnLS) + "," +
+                 String(xboxController.xboxNotif.btnRS) + "," +
+                 String(xboxController.xboxNotif.btnDirUp) + "," +
+                 String(xboxController.xboxNotif.btnDirRight) + "," +
+                 String(xboxController.xboxNotif.btnDirDown) + "," +
+                 String(xboxController.xboxNotif.btnDirLeft) + "," +
+                 String(xboxController.xboxNotif.joyLHori) + "," +
+                 String(xboxController.xboxNotif.joyLVert) + "," +
+                 String(xboxController.xboxNotif.joyRHori) + "," +
+                 String(xboxController.xboxNotif.joyRVert) + "," +
+                 String(xboxController.xboxNotif.trigLT) + "," +
+                 String(xboxController.xboxNotif.trigRT) + "\n";
+    return str;
 };
 
 /*
@@ -62,101 +70,101 @@ shake：下左电机和下右电机一起动，频率低力量大
 // 官方例程
 void demoVibration()
 {
-  XboxSeriesXHIDReportBuilder_asukiaaa::ReportBase repo;
-  Serial.println("full power for 1 sec");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    XboxSeriesXHIDReportBuilder_asukiaaa::ReportBase repo;
+    Serial.println("full power for 1 sec");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 
-  repo.v.select.center = true;
-  repo.v.select.left = false;
-  repo.v.select.right = false;
-  repo.v.select.shake = false;
-  repo.v.power.center = 30; // 30% power
-  repo.v.timeActive = 50;   // 0.5 second
-  Serial.println("run center 30\% power in half second");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    repo.v.select.center = true;
+    repo.v.select.left = false;
+    repo.v.select.right = false;
+    repo.v.select.shake = false;
+    repo.v.power.center = 30; // 30% power
+    repo.v.timeActive = 50;   // 0.5 second
+    Serial.println("run center 30\% power in half second");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 
-  repo.v.select.center = false;
-  repo.v.select.left = true;
-  repo.v.power.left = 30;
-  Serial.println("run left 30\% power in half second");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    repo.v.select.center = false;
+    repo.v.select.left = true;
+    repo.v.power.left = 30;
+    Serial.println("run left 30\% power in half second");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 
-  repo.v.select.left = false;
-  repo.v.select.right = true;
-  repo.v.power.right = 30;
-  Serial.println("run right 30\% power in half second");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    repo.v.select.left = false;
+    repo.v.select.right = true;
+    repo.v.power.right = 30;
+    Serial.println("run right 30\% power in half second");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 
-  repo.v.select.right = false;
-  repo.v.select.shake = true;
-  repo.v.power.shake = 30;
-  Serial.println("run shake 30\% power in half second");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    repo.v.select.right = false;
+    repo.v.select.shake = true;
+    repo.v.power.shake = 30;
+    Serial.println("run shake 30\% power in half second");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 
-  repo.v.select.shake = false;
-  repo.v.select.center = true;
-  repo.v.power.center = 50;
-  repo.v.timeActive = 20;
-  repo.v.timeSilent = 20;
-  repo.v.countRepeat = 2;
-  Serial.println("run center 50\% power in 0.2 sec 3 times");
-  xboxController.writeHIDReport(repo);
-  delay(2000);
+    repo.v.select.shake = false;
+    repo.v.select.center = true;
+    repo.v.power.center = 50;
+    repo.v.timeActive = 20;
+    repo.v.timeSilent = 20;
+    repo.v.countRepeat = 2;
+    Serial.println("run center 50\% power in 0.2 sec 3 times");
+    xboxController.writeHIDReport(repo);
+    delay(2000);
 }
 
 // 振动反馈，根据扳机按压力度调整振动力度
 void demoVibration_2()
 {
-  XboxSeriesXHIDReportBuilder_asukiaaa::ReportBase repo;
-  static uint16_t TrigMax = XboxControllerNotificationParser::maxTrig;
-  String str_1;
-  repo.setAllOff();
-  repo.v.select.left = true;
-  repo.v.select.right = true;
-  repo.v.power.left = (uint8_t)((float)xboxController.xboxNotif.trigLT / (float)TrigMax * 100);
-  repo.v.power.right = (uint8_t)((float)xboxController.xboxNotif.trigRT / (float)TrigMax * 100);
-  repo.v.timeActive = 50;
-  xboxController.writeHIDReport(repo);
-  str_1 = String(repo.v.power.left) + "," + String(repo.v.power.right) + "\n";
+    XboxSeriesXHIDReportBuilder_asukiaaa::ReportBase repo;
+    static uint16_t TrigMax = XboxControllerNotificationParser::maxTrig;
+    String str_1;
+    repo.setAllOff();
+    repo.v.select.left = true;
+    repo.v.select.right = true;
+    repo.v.power.left = (uint8_t)((float)xboxController.xboxNotif.trigLT / (float)TrigMax * 100);
+    repo.v.power.right = (uint8_t)((float)xboxController.xboxNotif.trigRT / (float)TrigMax * 100);
+    repo.v.timeActive = 50;
+    xboxController.writeHIDReport(repo);
+    str_1 = String(repo.v.power.left) + "," + String(repo.v.power.right) + "\n";
 
-  Serial.print(str_1);
-  delay(50);
+    Serial.print(str_1);
+    delay(50);
 }
 
 void setup()
 {
-  Serial.begin(115200);
-  Serial.println("Starting NimBLE Client");
-  xboxController.begin();
+    Serial.begin(115200);
+    Serial.println("Starting NimBLE Client");
+    xboxController.begin();
 }
 
 void loop()
 {
-  xboxController.onLoop();
-  if (xboxController.isConnected())
-  {
-    if (xboxController.isWaitingForFirstNotification())
+    xboxController.onLoop();
+    if (xboxController.isConnected())
     {
-      Serial.println("waiting for first notification");
+        if (xboxController.isWaitingForFirstNotification())
+        {
+            Serial.println("waiting for first notification");
+        }
+        else
+        {
+            Serial.print(xbox_string());
+            // demoVibration();
+            // demoVibration_2();
+        }
     }
     else
     {
-      Serial.print(xbox_string());
-      // demoVibration();
-      // demoVibration_2();
+        Serial.println("not connected");
+        if (xboxController.getCountFailedConnection() > 2)
+        {
+            ESP.restart();
+        }
     }
-  }
-  else
-  {
-    Serial.println("not connected");
-    if (xboxController.getCountFailedConnection() > 2)
-    {
-      ESP.restart();
-    }
-  }
 }
